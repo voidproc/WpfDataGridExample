@@ -3,17 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              xmlns:local="clr-namespace:WpfDataGridExample.Views"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <DataGrid ItemsSource="{Binding Data}" AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding Data}" AutoGenerateColumns="False" Name="dataGrid">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="商品名" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="金額" Binding="{Binding Price, TargetNullValue='null'}" />
             </DataGrid.Columns>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Sorting">
+                    <prism:InvokeCommandAction Command="{Binding SortingCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </DataGrid>
     </DockPanel>
 </UserControl>

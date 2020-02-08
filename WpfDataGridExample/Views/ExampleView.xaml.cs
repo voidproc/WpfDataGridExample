@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Prism.Events;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WpfDataGridExample.Events;
 
 namespace WpfDataGridExample.Views
 {
@@ -20,9 +9,17 @@ namespace WpfDataGridExample.Views
     /// </summary>
     public partial class ExampleView : UserControl
     {
-        public ExampleView()
+        public ExampleView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+
+            // VMからのイベント受け取る
+            eventAggregator.GetEvent<SortedEvent>().Subscribe(e =>
+            {
+                // ソートされた列の列ヘッダにソートマークつける
+                //dataGrid.Columns[ ... ].SortDirection = ...
+            },
+            true);
         }
     }
 }
